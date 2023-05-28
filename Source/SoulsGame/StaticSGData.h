@@ -4,7 +4,7 @@
 
 #include "StaticSGData.generated.h"
 
-#define SG_VERSION "0.1"
+#define SG_VERSION "0.1.0"
 
 USTRUCT()
 struct SOULSGAME_API FSavePointTransformData
