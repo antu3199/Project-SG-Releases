@@ -351,14 +351,16 @@ void AMyPlayerController::RotateCamera(const float InputAxis)
 // ReSharper disable once CppMemberFunctionMayBeConst
 void AMyPlayerController::MoveForward(const float InputAxis)
 {
-    const FRotator Rotator = PlayerCameraManager->GetCameraRotation();
-    const FVector Forward = UKismetMathLibrary::GetForwardVector(Rotator);
     ASCharacterBase* PawnCharacter = this->GetPawnCharacter();
-
     if (PawnCharacter == nullptr)
     {
         return;
     }
+    
+    FRotator Rotator = PlayerCameraManager->GetCameraRotation();
+    Rotator.Pitch = PawnCharacter->GetActorRotation().Pitch;
+
+    const FVector Forward = UKismetMathLibrary::GetForwardVector(Rotator);
     
     if (PawnCharacter->GetCanMove())
     {
@@ -380,16 +382,18 @@ void AMyPlayerController::MoveForward(const float InputAxis)
 // ReSharper disable once CppMemberFunctionMayBeConst
 void AMyPlayerController::MoveRight(const float InputAxis)
 {
-    const FRotator Rotator = PlayerCameraManager->GetCameraRotation();
-    const FVector Right = UKismetMathLibrary::GetRightVector(Rotator);
 
     ASCharacterBase* PawnCharacter = this->GetPawnCharacter();
-
     if (PawnCharacter == nullptr)
     {
         return;
     }
     
+    FRotator Rotator = PlayerCameraManager->GetCameraRotation();
+    Rotator.Pitch = PawnCharacter->GetActorRotation().Pitch;
+
+    const FVector Right = UKismetMathLibrary::GetRightVector(Rotator);
+
     if (PawnCharacter->GetCanMove())
     {
         if (InputAxis != 0)
