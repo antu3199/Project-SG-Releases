@@ -1,8 +1,8 @@
 #include "SGNarrativeWidget.h"
 
-#include "HUDWidget.h"
-#include "SoulsGame/SUtils.h"
-#include "SoulsGame/Subsystems/UISubsystem.h"
+#include "SGHUDWidget.h"
+#include "SoulsGame/SGUtils.h"
+#include "SoulsGame/Subsystems/SGUISubsystem.h"
 
 USGNarrativeWidget::USGNarrativeWidget(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
@@ -44,9 +44,9 @@ float USGNarrativeWidget::GetNarrationTime(int32 TextIndex)
 void USGNarrativeWidget::EndNarration()
 {
 	ResetRuntimeData();
-	if (const USGUISubsystem * Subsystem = FSUtils::GetGameInstanceSubsystem<USGUISubsystem>(GetWorld()))
+	if (const USGUISubsystem * Subsystem = FSGUtils::GetGameInstanceSubsystem<USGUISubsystem>(GetWorld()))
 	{
-		if (UHUDWidget* HUD = Subsystem->GetHUDInstance())
+		if (USGHUDWidget* HUD = Subsystem->GetHUDInstance())
 		{
 			HUD->RemoveNarrative();
 		}

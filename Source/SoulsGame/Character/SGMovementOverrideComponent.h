@@ -3,7 +3,7 @@
 
 #include "SGMovementOverrideComponent.generated.h"
 
-class UMyCharacterMovementComponent;
+class USGCharacterMovementComponent;
 
 UCLASS()
 class USGMovementOverrideComponent : public UActorComponent
@@ -18,5 +18,5 @@ public:
 	
 protected:
 	UPROPERTY(Transient)
-	UMyCharacterMovementComponent* MovementComponent = nullptr;
+	USGCharacterMovementComponent* MovementComponent = nullptr;
 };

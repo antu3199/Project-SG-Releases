@@ -2,8 +2,8 @@
 
 #include "SGMarkerActor.h"
 #include "Kismet/GameplayStatics.h"
-#include "SoulsGame/SGameInstance.h"
-#include "SoulsGame/SUtils.h"
+#include "SoulsGame/SGGameInstance.h"
+#include "SoulsGame/SGUtils.h"
 
 FMarkerInfo::FMarkerInfo()
 {
@@ -16,7 +16,7 @@ FMarkerInfo::FMarkerInfo(int32 InMarkerId)
 
 USGMarkerController* USGMarkerController::GetSingleton(const UObject* WorldContextObject)
 {
-	if (USGameInstance* GameInstance = Cast<USGameInstance>(UGameplayStatics::GetGameInstance(WorldContextObject)))
+	if (USGGameInstance* GameInstance = Cast<USGGameInstance>(UGameplayStatics::GetGameInstance(WorldContextObject)))
 	{
 		return GameInstance->GetMarkerController();
 	}
@@ -34,7 +34,7 @@ int32 USGMarkerController::CreateNewMarker(FVector MarkerLocation, FVector2f Siz
 
 	if (bCalculateGroundPosition)
 	{
-		const bool bIsValidLocation = FSUtils::GetGroundLocation(GetWorld(), MarkerLocation, GroundLocation);
+		const bool bIsValidLocation = FSGUtils::GetGroundLocation(GetWorld(), MarkerLocation, GroundLocation);
 		if (!bIsValidLocation)
 		{
 			return -1;

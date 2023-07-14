@@ -1,10 +1,10 @@
 #include "SavePointActor.h"
 
 #include "Kismet/GameplayStatics.h"
-#include "SoulsGame/MyGameModeBase.h"
-#include "SoulsGame/SGameInstance.h"
+#include "SoulsGame/SGGameModeBase.h"
+#include "SoulsGame/SGGameInstance.h"
 #include "SoulsGame/StaticSGData.h"
-#include "SoulsGame/SUtils.h"
+#include "SoulsGame/SGUtils.h"
 #include "SoulsGame/SaveLoad/SGSaveLoadManager.h"
 
 ASavePointActor::ASavePointActor()
@@ -18,7 +18,7 @@ ASavePointActor::ASavePointActor()
 	}
 }
 
-void ASavePointActor::SaveGame(FSGSaveRecord& SaveRecord)
+void ASavePointActor::OnSaveGame(FSGSaveRecord& SaveRecord)
 {
 	int32 Test = 0;
 }
@@ -62,12 +62,12 @@ void ASavePointActor::SetVisibility(bool bIsVisible)
 {
 	if (bIsVisible)
 	{
-		FSUtils::SetActorEnabled(this, true);
+		FSGUtils::SetActorEnabled(this, true);
 		OnUnlockVisibility();
 	}
 	else
 	{
-		FSUtils::SetActorEnabled(this, false);
+		FSGUtils::SetActorEnabled(this, false);
 	}
 }
 
@@ -78,7 +78,7 @@ bool ASavePointActor::IsVisible() const
 		return true;
 	}
 	
-	if (USGameInstance* GameInstance = Cast<USGameInstance>(UGameplayStatics::GetGameInstance(GetWorld())))
+	if (USGGameInstance* GameInstance = Cast<USGGameInstance>(UGameplayStatics::GetGameInstance(GetWorld())))
 	{
 		return GameInstance->GetSaveLoadManager()->GetCurrentSaveRecord().LevelProgressionData.HasAll(VisiblityRequirements);
 	}
@@ -108,7 +108,7 @@ bool ASavePointActor::IsUnlocked() const
 		return false;	
 	}
 	
-	if (USGameInstance* GameInstance = Cast<USGameInstance>(UGameplayStatics::GetGameInstance(GetWorld())))
+	if (USGGameInstance* GameInstance = Cast<USGGameInstance>(UGameplayStatics::GetGameInstance(GetWorld())))
 	{
 		return GameInstance->GetSaveLoadManager()->GetCurrentSaveRecord().UnlockedSavePoints.HasTag(SavePointTag);
 	}
@@ -128,17 +128,17 @@ void ASavePointActor::SetUnlocked()
 		return;
 	}
 
-	if (USGameInstance* GameInstance = Cast<USGameInstance>(UGameplayStatics::GetGameInstance(GetWorld())))
+	if (USGGameInstance* GameInstance = Cast<USGGameInstance>(UGameplayStatics::GetGameInstance(GetWorld())))
 	{
 		GameInstance->GetSaveLoadManager()->GetCurrentSaveRecordMutable().UnlockedSavePoints.AddTag(SavePointTag);
 	}
 }
 
 
-void ASavePointActor::OnInteract(AMyPlayerController* Controller)
+void ASavePointActor::OnInteract(ASGPlayerController* Controller)
 {
 	SetUnlocked();
-	if (AMyGameModeBase* GameMode = Cast<AMyGameModeBase>(UGameplayStatics::GetGameMode(GetWorld())))
+	if (ASGGameModeBase* GameMode = Cast<ASGGameModeBase>(UGameplayStatics::GetGameMode(GetWorld())))
 	{
 		GameMode->RestartGameAtSavePoint(SavePointTag, true);
 	}

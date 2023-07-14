@@ -1,7 +1,7 @@
 #include "SGSpawnerActor.h"
 
 #include "Kismet/GameplayStatics.h"
-#include "SoulsGame/MyGameModeBase.h"
+#include "SoulsGame/SGGameModeBase.h"
 
 AActor* ASGSpawnerActor::SpawnRandomActorFromTemplate()
 {
@@ -34,7 +34,7 @@ void ASGSpawnerActor::BeginPlay()
 {
 	Super::BeginPlay();
 
-	if (AMyGameModeBase* GameMode = Cast<AMyGameModeBase>(UGameplayStatics::GetGameMode(GetWorld())))
+	if (ASGGameModeBase* GameMode = Cast<ASGGameModeBase>(UGameplayStatics::GetGameMode(GetWorld())))
 	{
 		GameMode->RegisterSpawner(this);
 	}
@@ -42,7 +42,7 @@ void ASGSpawnerActor::BeginPlay()
 
 void ASGSpawnerActor::BeginDestroy()
 {
-	if (AMyGameModeBase* GameMode = Cast<AMyGameModeBase>(UGameplayStatics::GetGameMode(GetWorld())))
+	if (ASGGameModeBase* GameMode = Cast<ASGGameModeBase>(UGameplayStatics::GetGameMode(GetWorld())))
 	{
 		GameMode->RemoveSpawner(this);
 	}

@@ -2,7 +2,7 @@
 
 #include "AIController.h"
 #include "BrainComponent.h"
-#include "SCharacterBase.h"
+#include "SGCharacterBase.h"
 
 void USGPhaseComponent::BeginPlay()
 {
@@ -25,7 +25,7 @@ int32 USGPhaseComponent::GetPhase() const
 
 void USGPhaseComponent::UpdatePhase()
 {
-	if (const ASCharacterBase* Character = Cast<ASCharacterBase>(GetOwner()))
+	if (const ASGCharacterBase* Character = Cast<ASGCharacterBase>(GetOwner()))
 	{
 		const float HealthPercent = Character->GetHealthPercent();
 		int32 CurPhase = 0;
@@ -54,7 +54,7 @@ void USGPhaseComponent::OnTransitionPhase(int32 NewPhase)
 		{
 			AnimInstance->StopAllMontages(0.0f);
 
-			if (const ASCharacterBase* Character = Cast<ASCharacterBase>(GetOwner()))
+			if (const ASGCharacterBase* Character = Cast<ASGCharacterBase>(GetOwner()))
 			{
 				if (AAIController* AIController = Cast<AAIController>(Character->GetController()))
 				{
@@ -75,7 +75,7 @@ void USGPhaseComponent::OnTransitionPhase(int32 NewPhase)
 
 UAnimInstance* USGPhaseComponent::Helper_GetAnimMontage() const
 {
-	if (const ASCharacterBase* Character = Cast<ASCharacterBase>(GetOwner()))
+	if (const ASGCharacterBase* Character = Cast<ASGCharacterBase>(GetOwner()))
 	{
 		if (UAnimInstance * AnimInstance = Character->GetMesh()->GetAnimInstance())
 		{
@@ -89,7 +89,7 @@ UAnimInstance* USGPhaseComponent::Helper_GetAnimMontage() const
 void USGPhaseComponent::OnMontageEnded(UAnimMontage* Montage, bool bInterrupted)
 {
 	this->MontageEndedDelegate.Unbind();
-	if (const ASCharacterBase* Character = Cast<ASCharacterBase>(GetOwner()))
+	if (const ASGCharacterBase* Character = Cast<ASGCharacterBase>(GetOwner()))
 	{
 		if (AAIController* AIController = Cast<AAIController>(Character->GetController()))
 		{

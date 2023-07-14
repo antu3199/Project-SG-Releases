@@ -10,7 +10,7 @@ class ASGLootActor : public AActor
 
 public:
 	UFUNCTION(BlueprintCallable)
-	virtual void ApplyLootToCharacter(class ASCharacterBase* Character);
+	virtual void ApplyLootToCharacter(class ASGCharacterBase* Character);
 	
 protected:
 	virtual void BeginPlay() override;

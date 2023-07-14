@@ -1,13 +1,14 @@
 #include "SGLootActorEXP.h"
 
-#include "SoulsGame/Character/SCharacterBase.h"
+#include "SoulsGame/Character/SGCharacterBase.h"
 
 
-void ASGLootActorEXP::ApplyLootToCharacter(ASCharacterBase* Character)
+void ASGLootActorEXP::ApplyLootToCharacter(ASGCharacterBase* Character)
 {
 	Super::ApplyLootToCharacter(Character);
 
-	Character->AddXp(1);
+	// DEPRECATED
+	//Character->AddXp(1);
 }
 
 void ASGLootActorEXP::BeginPlay()

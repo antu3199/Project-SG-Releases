@@ -2,7 +2,7 @@
 
 
 
-void ASGLootActor::ApplyLootToCharacter(ASCharacterBase* Character)
+void ASGLootActor::ApplyLootToCharacter(ASGCharacterBase* Character)
 {
 	
 }

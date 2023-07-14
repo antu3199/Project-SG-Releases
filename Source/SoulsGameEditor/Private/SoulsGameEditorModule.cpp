@@ -2,14 +2,14 @@
 
 #include "IAssetViewport.h"
 #include "LevelEditor.h"
-#include "SAssetActorDetails.h"
-#include "SAssetComponentDetails.h"
-#include "SCommands.h"
+#include "SGAssetActorDetails.h"
+#include "SGAssetComponentDetails.h"
+#include "SGCommands.h"
 #include "UnrealEdGlobals.h"
 #include "Editor/UnrealEdEngine.h"
 #include "Kismet/GameplayStatics.h"
-#include "SoulsGame/SGameInstance.h"
-#include "SoulsGame/SGameSingleton.h"
+#include "SoulsGame/SGGameInstance.h"
+#include "SoulsGame/SGGameSingleton.h"
 #include "Subsystems/UnrealEditorSubsystem.h"
 
 IMPLEMENT_GAME_MODULE(FSoulsGameEditorModule, SoulsGameEditor);
@@ -80,13 +80,13 @@ FSoulsGameEditorModule::BindMenuCommands()
 {
 	SCommands = MakeShareable(new FUICommandList);
 
-	FSCommands::Register();
-	const FSCommands& Commands = FSCommands::Get();
+	FSGCommands::Register();
+	const FSGCommands& Commands = FSGCommands::Get();
 	
 
 	SCommands->MapAction(
 		Commands._OpenSGWindow,
-		FExecuteAction::CreateLambda([]() {FSCommands::OpenSGWindow(); }),
+		FExecuteAction::CreateLambda([]() {FSGCommands::OpenSGWindow(); }),
 		FCanExecuteAction::CreateLambda([]() { return true; }));
 
 
@@ -109,7 +109,7 @@ void
 FSoulsGameEditorModule::AddMainMenuExtension(FMenuBuilder & MenuBuilder)
 {
 	MenuBuilder.BeginSection("Actions", LOCTEXT("ActionsLabel", "Actions"));
-	MenuBuilder.AddMenuEntry(FSCommands::Get()._OpenSGWindow);
+	MenuBuilder.AddMenuEntry(FSGCommands::Get()._OpenSGWindow);
 	MenuBuilder.EndSection();
 }
 
@@ -120,11 +120,11 @@ void FSoulsGameEditorModule::RegisterDetails()
 	// Register details presenter for our component type and runtime settings.
 	PropertyModule.RegisterCustomClassLayout(
 		TEXT("SAssetComponent"),
-		FOnGetDetailCustomizationInstance::CreateStatic(&FSAssetComponentDetails::MakeInstance));
+		FOnGetDetailCustomizationInstance::CreateStatic(&FSGAssetComponentDetails::MakeInstance));
 
 	PropertyModule.RegisterCustomClassLayout(
 		TEXT("SAssetActor"),
-		FOnGetDetailCustomizationInstance::CreateStatic(&FSAssetActorDetails::MakeInstance));
+		FOnGetDetailCustomizationInstance::CreateStatic(&FSGAssetActorDetails::MakeInstance));
 }
 
 void FSoulsGameEditorModule::UnregisterDetails()
@@ -144,7 +144,7 @@ void FSoulsGameEditorModule::OnPIE(const bool bIsSimulating)
 	// Allow for "Play from here"
 	if (UWorld* World = GetEditorWorld())
 	{
-		if (USGameSingleton* Singleton = Cast<USGameSingleton>(GEditor->GameSingleton))
+		if (USGGameSingleton* Singleton = Cast<USGGameSingleton>(GEditor->GameSingleton))
 		{
 			Singleton->OnPIE(World);
 

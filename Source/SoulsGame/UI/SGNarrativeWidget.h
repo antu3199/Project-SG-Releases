@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Blueprint/UserWidget.h"
-#include "SoulsGame/Character/SCharacterBase.h"
+#include "SoulsGame/Character/SGCharacterBase.h"
 #include "SoulsGame/Subsystems/SGTableRowData.h"
 #include "SGNarrativeWidget.generated.h"
 

@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "GameplayTagContainer.h"
-#include "InteractableActor.h"
+#include "SGInteractableActor.h"
 #include "SoulsGame/SaveLoad/SGSaveRecord.h"
 
 #include "SavePointActor.generated.h"
@@ -22,13 +22,13 @@ public:
 
 
 UCLASS(Abstract)
-class SOULSGAME_API ASavePointActor : public AInteractableActor, public ISGSaveLoadInterface
+class SOULSGAME_API ASavePointActor : public ASGInteractableActor, public ISGSaveLoadInterface
 {
 	GENERATED_BODY()
 public:
 	ASavePointActor();
 
-	virtual void SaveGame(struct FSGSaveRecord& SaveRecord) override;
+	virtual void OnSaveGame(struct FSGSaveRecord& SaveRecord) override;
 	virtual void LoadGame(const struct FSGSaveRecord& LoadRecord) override;
 
 	virtual  void BeginPlay() override;
@@ -60,7 +60,7 @@ public:
 	void SetUnlocked();
 
 	UFUNCTION(BlueprintImplementableEvent)
-	void OpenSaveUI(AMyPlayerController* Controller);
+	void OpenSaveUI(ASGPlayerController* Controller);
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TObjectPtr<USceneComponent> PlayerSpawnPoint;
@@ -72,7 +72,7 @@ public:
 	FGameplayTagContainer VisiblityRequirements;
 
 protected:
-	virtual void OnInteract(AMyPlayerController* Controller) override;
+	virtual void OnInteract(ASGPlayerController* Controller) override;
 
 	bool bCurrentVisibility = false;
 

@@ -1,7 +1,7 @@
 #include "SGFadeInOutWidget.h"
 
-#include "SoulsGame/SUtils.h"
-#include "SoulsGame/Subsystems/UISubsystem.h"
+#include "SoulsGame/SGUtils.h"
+#include "SoulsGame/Subsystems/SGUISubsystem.h"
 
 USGFadeInOutWidget::USGFadeInOutWidget(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
@@ -9,7 +9,7 @@ USGFadeInOutWidget::USGFadeInOutWidget(const FObjectInitializer& ObjectInitializ
 
 void USGFadeInOutWidget::OnFadeInFinished()
 {
-	if (USGUISubsystem * Subsystem = FSUtils::GetGameInstanceSubsystem<USGUISubsystem>(GetWorld()))
+	if (USGUISubsystem * Subsystem = FSGUtils::GetGameInstanceSubsystem<USGUISubsystem>(GetWorld()))
 	{
 		Subsystem->OnFadeIn();
 	}
@@ -17,7 +17,7 @@ void USGFadeInOutWidget::OnFadeInFinished()
 
 void USGFadeInOutWidget::OnFadeOutFinished()
 {
-	if (USGUISubsystem * Subsystem = FSUtils::GetGameInstanceSubsystem<USGUISubsystem>(GetWorld()))
+	if (USGUISubsystem * Subsystem = FSGUtils::GetGameInstanceSubsystem<USGUISubsystem>(GetWorld()))
 	{
 		Subsystem->OnFadeOut();
 	}

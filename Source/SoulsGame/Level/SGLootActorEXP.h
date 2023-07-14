@@ -10,7 +10,7 @@ class ASGLootActorEXP : public ASGLootActor
 	GENERATED_BODY()
 
 public:
-	virtual void ApplyLootToCharacter(class ASCharacterBase* Character) override;
+	virtual void ApplyLootToCharacter(class ASGCharacterBase* Character) override;
 	
 protected:
 	virtual void BeginPlay() override;

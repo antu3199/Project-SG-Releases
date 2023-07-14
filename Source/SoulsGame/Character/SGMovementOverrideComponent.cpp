@@ -1,6 +1,6 @@
 #include "SGMovementOverrideComponent.h"
 
-#include "SoulsGame/UE4Overrides/MyCharacterMovementComponent.h"
+#include "SoulsGame/UE4Overrides/SGCharacterMovementComponent.h"
 
 USGMovementOverrideComponent::USGMovementOverrideComponent()
 {

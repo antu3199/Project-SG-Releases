@@ -15,8 +15,9 @@ enum class ESGTeamOverlapBehaviour : uint8
 {
 	DoNotOverlap,
 	OverlapAll,
-	OnlyEnemies,
-	OnlyAllies,
+	OnlyPawns,
+	OnlyEnemyPawns,
+	OnlyAllyPawns,
 	OnlyAllies_ExceptSelf,
 	OnlySelf
 };
@@ -27,7 +28,7 @@ struct FSGCollisionParams
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere)
-	ESGCollisionProfileType ProfileType;
+	ESGCollisionProfileType ProfileType = ESGCollisionProfileType::Profile_OverlapAll;
 
 	// Only relevant if profile type is Overlap
 	UPROPERTY(EditAnywhere)

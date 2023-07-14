@@ -2,18 +2,18 @@
 
 #include "JsonObjectConverter.h"
 #include "Kismet/GameplayStatics.h"
-#include "SoulsGame/SGameInstance.h"
+#include "SoulsGame/SGGameInstance.h"
 
 #include "SGSaveRecord.h"
 #include "Engine/LevelStreaming.h"
-#include "SoulsGame/SUtils.h"
-#include "SoulsGame/Character/SCharacterBase.h"
+#include "SoulsGame/SGUtils.h"
+#include "SoulsGame/Character/SGCharacterBase.h"
 
 DEFINE_LOG_CATEGORY(SGSaveLoadManager);
 
 USGSaveLoadManager* USGSaveLoadManager::GetSingleton(const UObject* WorldContextObject)
 {
-	if (USGameInstance* GameInstance = Cast<USGameInstance>(UGameplayStatics::GetGameInstance(WorldContextObject)))
+	if (USGGameInstance* GameInstance = Cast<USGGameInstance>(UGameplayStatics::GetGameInstance(WorldContextObject)))
 	{
 		return GameInstance->GetSaveLoadManager();
 	}
@@ -33,14 +33,12 @@ void USGSaveLoadManager::SaveGame()
 	}
 	*/
 
-	
-
 	TArray<ISGSaveLoadInterface*> OutActors;
 	GetAllActorsFromAllStreamingLevels(OutActors);
 
 	for (ISGSaveLoadInterface* Actor : OutActors)
 	{
-		Actor->SaveGame(CurrentSaveRecord);
+		Actor->OnSaveGame(CurrentSaveRecord);
 	}
 
 	SaveGame(CurrentSaveRecord, SavePath);
